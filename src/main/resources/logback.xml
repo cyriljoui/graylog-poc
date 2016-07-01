@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>.%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %n
+            </Pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+    </appender>
+
+    <appender name="GRAYLOG" class="com.github.pukkaone.gelf.logback.GelfAppender">
+        <graylogHost>192.168.1.56</graylogHost>
+        <originHost>application-instance2</originHost>
+        <levelIncluded>true</levelIncluded>
+        <locationIncluded>false</locationIncluded>
+        <loggerIncluded>true</loggerIncluded>
+        <markerIncluded>false</markerIncluded>
+        <mdcIncluded>false</mdcIncluded>
+        <threadIncluded>false</threadIncluded>
+        <facility>gelf-java</facility>
+        <additionalField>application=GraylogPoc</additionalField>
+        <additionalField>environment=development</additionalField>
+    </appender>
+
+    <root>
+        <level value="INFO" />
+        <appender-ref ref="consoleAppender" />
+        <appender-ref ref="GRAYLOG" />
+    </root>
+</configuration>
